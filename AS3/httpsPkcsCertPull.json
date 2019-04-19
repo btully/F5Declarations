@@ -41,7 +41,11 @@
                 "class": "Certificate",
                 "remark": "replace this with your own cert store",
                 "pkcs12": {
-                    "url": ""
+                    "url": "https://raw.githubusercontent.com/btully/F5Declarations/master/AS3/certs/testService.pfx"
+                },
+                "passphrase": {
+                    "ciphertext": "ZXhhbXBsZQ==",
+                    "ignoreChanges": true
                 }
             }
         }

@@ -1,0 +1,49 @@
+{
+    "class": "ADC",
+    "schemaVersion": "3.7.0",
+    "id": "TEST_SSL_APP",
+    "testTenant": {
+        "class": "Tenant",
+        "Application": {
+            "class": "Application",
+            "template": "generic",
+            "testService": {
+                "class": "Service_HTTPS",
+                "virtualAddresses": [
+                    "192.0.2.34"
+                ],
+                "virtualPort": 443,
+                "pool": "testService_pool",
+                "serverTLS": "testService_serverSSL"
+            },
+            "testService_serverSSL": {
+                "class": "TLS_Server",
+                "certificates": [{
+                    "certificate": "testService_cert"
+                }]
+            },
+            "testService_pool": {
+                "class": "Pool",
+                "monitors": [
+                    "http"
+                ],
+                "members": [
+                    {
+                        "servicePort": 80,
+                        "serverAddresses": [
+                            "192.0.2.72",
+                            "192.0.2.73"
+                        ]
+                    }
+                ]
+            },
+            "testService_cert": {
+                "class": "Certificate",
+                "remark": "replace this with your own cert store",
+                "pkcs12": {
+                    "url": ""
+                }
+            }
+        }
+    }
+}

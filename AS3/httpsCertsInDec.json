@@ -1,0 +1,48 @@
+{
+    "class": "ADC",
+    "schemaVersion": "3.7.0",
+    "id": "TEST_SSL_APP",
+    "testTenant": {
+        "class": "Tenant",
+        "Application": {
+            "class": "Application",
+            "template": "generic",
+            "testService": {
+                "class": "Service_HTTPS",
+                "virtualAddresses": [
+                    "192.0.2.34"
+                ],
+                "virtualPort": 443,
+                "pool": "testService_pool",
+                "serverTLS": "testService_serverSSL"
+            },
+            "testService_serverSSL": {
+                "class": "TLS_Server",
+                "certificates": [{
+                    "certificate": "testService_cert"
+                }]
+            },
+            "testService_pool": {
+                "class": "Pool",
+                "monitors": [
+                    "http"
+                ],
+                "members": [
+                    {
+                        "servicePort": 80,
+                        "serverAddresses": [
+                            "192.0.2.72",
+                            "192.0.2.73"
+                        ]
+                    }
+                ]
+            },
+            "testService_cert": {
+                "class": "Certificate",
+                "remark": "replace these with real certificates and keys",
+                "certificate": "-----BEGIN CERTIFICATE-----\nMIIC1DCCAbygAwIBAgIEEXtBGzANBgkqhkiG9w0BAQsFADAsMQswCQYDVQQGEwJV\nUzEdMBsGA1UEAxMUdGVzdFNlcnZpY2UudGVzdC5jb20wHhcNMTkwNDE4MjEzMTA3\nWhcNMjAwNDE3MjEzMTA3WjAsMQswCQYDVQQGEwJVUzEdMBsGA1UEAxMUdGVzdFNl\ncnZpY2UudGVzdC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDP\nlPZ55sm7e+DHO9IEt2HiknyrH/ZlG3Z5AFAx6qdHadMUVLH5sI/Z1/PgawjE7XNI\nU+c9LFc7eRKFrBQ1Zfnr0zM5UU1t60xmIAjFIU0PoOJyb/noWJocUlv3vRgUd7nW\nUiS4CFTmrKsvGCRkmsJhw4BrSnWC58ghynVhuaFVwjXwVRCTuVH2PVgsG/dsoJzU\n49WiVXLHHiMP65jpTyuIUs/ffC4+PC261AQbGtfBK3rGN8pnY+dK8K5M0BcHuf6y\nPsTBWu3AobqXuqbHC99vl2ZctV9GSJ2uLKVw4MpRGXzrF5amXj02VxAxWRFTh8S9\n848WTg+0b1Og1g33VtGfAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAEFdiBMBiqnp\nBGVnOFOU7wFBA4sy9ov51tkNIK4bzNa2a5LsKRMAD/80VG99Zj0fdhfr2Ykrrvrf\nGqVlCKWuHhSeZhVbMtOTi2r1dXAnS1PkzlaJNcb97yyr/RpRfz0Qn0cVjE3cNqbK\nrp8z1RqmLiPg53+G2mpsUJZQYOfy8V0SQw2uIAMYb+en/8BosenDoOyRjQHXJVWy\n6O4VmhVeSdrUQCcv52Z2smxWYieUy1U8B6rr6PEISAMcgfY8OT9PzQCNR16HwM8x\n91PvzIjZye1sBIqqp2VyLHdiOaXDq6WLuFcJ4quPmM9gDYhL7QmKS5ItSwHFry6h\n/fRgmyRDooQ=\n-----END CERTIFICATE-----\n",
+                "privateKey": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDPlPZ55sm7e+DH\nO9IEt2HiknyrH/ZlG3Z5AFAx6qdHadMUVLH5sI/Z1/PgawjE7XNIU+c9LFc7eRKF\nrBQ1Zfnr0zM5UU1t60xmIAjFIU0PoOJyb/noWJocUlv3vRgUd7nWUiS4CFTmrKsv\nGCRkmsJhw4BrSnWC58ghynVhuaFVwjXwVRCTuVH2PVgsG/dsoJzU49WiVXLHHiMP\n65jpTyuIUs/ffC4+PC261AQbGtfBK3rGN8pnY+dK8K5M0BcHuf6yPsTBWu3AobqX\nuqbHC99vl2ZctV9GSJ2uLKVw4MpRGXzrF5amXj02VxAxWRFTh8S9848WTg+0b1Og\n1g33VtGfAgMBAAECggEADxTiEXpAluQJsT/54sjWDkmZUC+Kzc7AfUsWCIJlc+1O\n3i/HHH6E/Q1RFTGBmhksYoliCBJEJjiGLXsSnsyRa15VXuk2yHErhFH4gSYJvMRy\nH2FeVVC2pa8gKnAtIzONp3IhY9OLI5VQ/KNy5XJPBB5ZorHutruTUU0t2RNNEvdf\nLuDe+tQ3VcZ7AjmRSAuTXci9NNU43taGtU+5TGGT1jriHYMYjR4wgclSiSQ40A+l\nKI3Q+gHDDIe2Q+cykQaNt7xVLhwoYalOQR47FVI9IzqASXIJekqkjxqyezBSuzho\nTHAB/GYxmzpEfHzBhLJUFwC7PqCzcYFLxMVNxjcpBQKBgQD4suCvnzLEM0V+YQ3x\nl+aQQppqpRI58aRWKMBq2IQZd5CaDkh17ys1zcJO3DBxX5sElWPs5RRhSQx1HoDJ\nT+ldWZs3Dan+tBk2b0OqnnUTHqqboDQTpit+2h0nFNY8vZGI7Vlvy5wpp619OfKt\nIuHtmH69ESvtH3uhCE7VRnuiSwKBgQDVrREjD7hN1gK/69+7LDx8mPKrV3Tc1uf2\nJi801ZQH4y5rc/aBbjyeWwbiTWsPnePyPeTMqdCVEpkm8tI/s0rS9JSOx8EJZ0A7\n+7TiUmaL707Ur4fHNmf3/z8f2PlFow/C6ZdrI/nNlj/+8FgCUG5QJw1PbvjJS3Fi\nbeOWKNXZfQKBgFdtkt1Kau9cUt7VwbAfxVcLgvtgomKqVypO0y38hZvqU3RE9yY2\neQtGFTvh3knM4VMgLWu3MI3uvylhGscqh5Bgktcsv4khyQdA4BnX8LJTAokJLaWG\nsh27EaqOga4CumnXfqx1eKWQI8Y1G+HPtHrxNATFR5rpiW2X3RbO22G3AoGABBNS\n+lo4Z7OnRcXX9Jf5Z177ce0vG2816Wn9CILyWdwpbH8/umRB37tYvERBwICAcoRf\nss+iXNWH+kgzXmerC68Cjl6c/fLsNLiuUIrFzfF4jXHzowcUoJRLve3Dg2KC0HLo\nInEDOLqe6dvnsdOa5wh3poY1VJGNzhTOfHS273kCgYEAxCkv969uniWSzlRKv3QG\nzlycBdMTjiY8do29lenOYRiMmyFReY/lNCCTBzdfRZ6t2J/anHb3b2ud8KkFdzRf\nfEx8AI4MB7H4Q1Z4V6tZ4CoHZwYhhArEfckf7CbMBcqsGdLQoQL4SRy7Bs6uRmeD\nizcnqfaDMfM7UkNY/DBJwOw=\n-----END PRIVATE KEY-----\n"
+            }
+        }
+    }
+}

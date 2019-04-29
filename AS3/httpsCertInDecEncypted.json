@@ -1,0 +1,52 @@
+{
+    "class": "ADC",
+    "schemaVersion": "3.7.0",
+    "id": "TEST_SSL_APP",
+    "testTenant": {
+        "class": "Tenant",
+        "Application": {
+            "class": "Application",
+            "template": "generic",
+            "testService": {
+                "class": "Service_HTTPS",
+                "virtualAddresses": [
+                    "192.0.2.34"
+                ],
+                "virtualPort": 443,
+                "pool": "testService_pool",
+                "serverTLS": "testService_serverSSL"
+            },
+            "testService_serverSSL": {
+                "class": "TLS_Server",
+                "certificates": [{
+                    "certificate": "testService_cert"
+                }]
+            },
+            "testService_pool": {
+                "class": "Pool",
+                "monitors": [
+                    "http"
+                ],
+                "members": [
+                    {
+                        "servicePort": 80,
+                        "serverAddresses": [
+                            "192.0.2.72",
+                            "192.0.2.73"
+                        ]
+                    }
+                ]
+            },
+            "testService_cert": {
+                "class": "Certificate",
+                "remark": "replace these with real certificates and keys",
+                "certificate": "-----BEGIN CERTIFICATE-----\nMIIC1DCCAbygAwIBAgIEEXtBGzANBgkqhkiG9w0BAQsFADAsMQswCQYDVQQGEwJV\nUzEdMBsGA1UEAxMUdGVzdFNlcnZpY2UudGVzdC5jb20wHhcNMTkwNDE4MjEzMTA3\nWhcNMjAwNDE3MjEzMTA3WjAsMQswCQYDVQQGEwJVUzEdMBsGA1UEAxMUdGVzdFNl\ncnZpY2UudGVzdC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDP\nlPZ55sm7e+DHO9IEt2HiknyrH/ZlG3Z5AFAx6qdHadMUVLH5sI/Z1/PgawjE7XNI\nU+c9LFc7eRKFrBQ1Zfnr0zM5UU1t60xmIAjFIU0PoOJyb/noWJocUlv3vRgUd7nW\nUiS4CFTmrKsvGCRkmsJhw4BrSnWC58ghynVhuaFVwjXwVRCTuVH2PVgsG/dsoJzU\n49WiVXLHHiMP65jpTyuIUs/ffC4+PC261AQbGtfBK3rGN8pnY+dK8K5M0BcHuf6y\nPsTBWu3AobqXuqbHC99vl2ZctV9GSJ2uLKVw4MpRGXzrF5amXj02VxAxWRFTh8S9\n848WTg+0b1Og1g33VtGfAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAEFdiBMBiqnp\nBGVnOFOU7wFBA4sy9ov51tkNIK4bzNa2a5LsKRMAD/80VG99Zj0fdhfr2Ykrrvrf\nGqVlCKWuHhSeZhVbMtOTi2r1dXAnS1PkzlaJNcb97yyr/RpRfz0Qn0cVjE3cNqbK\nrp8z1RqmLiPg53+G2mpsUJZQYOfy8V0SQw2uIAMYb+en/8BosenDoOyRjQHXJVWy\n6O4VmhVeSdrUQCcv52Z2smxWYieUy1U8B6rr6PEISAMcgfY8OT9PzQCNR16HwM8x\n91PvzIjZye1sBIqqp2VyLHdiOaXDq6WLuFcJ4quPmM9gDYhL7QmKS5ItSwHFry6h\n/fRgmyRDooQ=\n-----END CERTIFICATE-----\n",
+                "privateKey": "-----BEGIN RSA PRIVATE KEY-----\nProc-Type: 4,ENCRYPTED\nDEK-Info: AES-256-CBC,A9EC2A1770A18D9FEE4ACF722C05CFFD\n\nIrunIenlNCeqOlNaFBFOV2VxxRdL6R+hNL3MGizXvJPALfGHBtNNu+nVcjUx70GD\nQK33/qsgAsnmh2ClL+UvD94o2VbkN1B6sFLKgHhBcBPbMYJL6OnAEecFeKR3bb+1\nkxUlJ9aGI2wcouSsJWsqLy6cpAjeoQRKEnb6+RQE6XbNo/fAgnXZqmPTFkNUW8Wx\npYlWy2mPzTNEEiZe11Hx1w3rr/B1IM7GB7Brs6+eQzN/MqJp0IrUb6YONDLOPXfs\n1JL30r4pnWDzACpx285+dbVitXXSbxSEybK3Cev/6x1ooazEnbarcIUAqp/eLOXS\n5rZiwfQVgs4wWhUphEZPcUx7OIhQuub6+ujjKpOI1b3PwDn11VF2UZCZ8fDK4hW8\nZa22bhBh1h7kVlF9h6RuI697OqgBFvvDMxnCzZ09AcIJWNJbcn+4E+nYXHZl23Mm\n63VHzwjYjHtFskch3Cg9zDgy1XhdhTbYBIDSbcszMGAqosppLtd3vOloguKBpLaA\ntL2aY7SfgpQ32XC5cKE7rlf0oSUh0FAOntHuL51m/bqr6e4RQUsrOtOCR5Nbr7a1\nGf9Mpvd/qf0QFJSvxlhxEfxHPQ6peGOz0Woj35qgvPGzTfitPYuHh2ZL7kWUQ7Zq\nV/CMZtYgSEGIeP9ZIsQuG/xQ6sHMsfdYcisWf3lGIyfq+v2NkgE7Q0Qps478qWBX\nnzK6Uip6sDctEtwAH38sQ/tiUWAEHJjo7rwUfufHaZ/al4l3m73L3gALvpY5bsYG\nSYlIToLxGN/kMjq9bK+ealk7/geZEX7g2n66c87TC6fg23K/Gdntn/dNyItG/jpk\nVOUdpM+yM26GDlNel5Lx55nGk0HdYcBpNRFqXb29TPyNz2RJxRU3FM/5U9OihJuk\ntuknATo9n0g7sl7osZUcs+WG9Sk8zDuBr6gXXA4QJh5SMUlfl+KJZEFQ6BtyyGA/\npsbzKPX5QQnRKQY4cHWYYkIJgQkpxzowPm2u+q0mCt73meeP6PCAlNn6YvHaUrgd\nu/FCpGcvYgwoVtEvPx8fq2sK7zFFN6M/j6QxALp2ZCDKnGFq6V+8aw0ylxVLl2cT\nVkCn6nvXlv6/x/qyhXQKqPKm33CHpbR/qH3KJ954PdpG1+E8XR5s38FxgOJV9VV4\nYMWDft407xfY5A8bq9DNI84XN442VKjFdzl4TqsJ3yXQVWKn9eYbLXhawIsiBKJJ\nJoI/Y5vPUGXHOrtlMHapSNzAF45gi92Kyb5YguMZ3r7ccgpT81irFyXQE9UTpUPD\nt7LUbhPZ5elcgSpu1W/ukQ03hD1840+yNliTbV8fz1VYdlWNKK2XbAfDAqJtTzWy\nTdWurB3gDfxkojlvrWg0/rnyDeQ4aPP2NyKduFPF8mC/4RPSFgUQdHkt2UNBPpo7\noIgzynSqRWE8dqk5wlCcl4p0EvOQJIpT8GsIz1+2iB79AgJVDEWEUfAVNDzl6R7A\n+wQTbpFAOEZSWptVyNNx/cc4FMxaxgmSoS+jSf89AiLjL4wRRnvTBRFkwLA3/n+g\nkfTYBf83E5rMFD0uLwfagd6md1+XKh57rRufmMcWY896eOcy511iXMSKA6iNikv0\n-----END RSA PRIVATE KEY-----",
+                "passphrase": {
+                    "ciphertext": "ZXhhbXBsZQ==",
+                    "ignoreChanges": true
+                }
+            }
+        }
+    }
+}

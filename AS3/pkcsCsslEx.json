@@ -26,7 +26,7 @@
                 ],
                 "class": "Pool"
             },
-            "Aetna_pkcs_ex": {
+            "pkcs_ex_vip": {
                 "layer4": "tcp",
                 "pool": "local_node_serv",
                 "translateServerAddress": true,
